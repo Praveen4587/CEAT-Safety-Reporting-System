@@ -1,0 +1,30 @@
+CEAT SAFETRACK - HOSTING VERSION (SUPABASE + RENDER)
+
+This version supports Supabase PostgreSQL through DATABASE_URL. Local development
+continues to use SQLite when DATABASE_URL is not set. Photo upload and photo evidence
+features have been removed. No photo object storage is required.
+
+BEFORE DEPLOYMENT
+1. Confirm your Supabase database password has been reset.
+2. In Supabase, use the Session Pooler connection details (host, port 5432,
+   database postgres, user postgres.<project-ref>) and the NEW password.
+3. In Render, create a Web Service from this project/repository.
+4. Build command: pip install -r requirements.txt
+5. Start command: python app.py serve --host 0.0.0.0 --port $PORT
+6. Add Environment Variable DATABASE_URL using the Session Pooler connection string:
+   postgresql://USER:NEW_PASSWORD@POOLER_HOST:5432/postgres?sslmode=require
+   Enter the password directly in Render. Do not put it in GitHub or this ZIP.
+7. Deploy. On first start the app creates the required PostgreSQL tables.
+8. Use the existing administrator setup procedure only after the database is ready.
+
+IMPORTANT
+- This is a demo/technical hosting setup, not approval for production employee data.
+- Render Free may sleep and has an ephemeral filesystem; the PostgreSQL database
+  remains separate. Supabase Free has quotas and inactivity limitations.
+- Ask CEAT IT/security to approve hosting, data location, retention, backups,
+  authentication, and employee-data handling before real use.
+- SMTP email OTP is not configured in this code release. Do not assume email
+  verification or password-reset OTP will work until an SMTP provider and OTP
+  workflows are implemented and tested.
+- The monthly department workbook uses only matching report rows from the system
+  database for the selected month/division. The supplied Excel files are templates.
